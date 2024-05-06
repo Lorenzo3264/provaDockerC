@@ -2,4 +2,5 @@ FROM gcc:latest
 COPY . /DockerWorld
 WORKDIR /DockerWorld/
 RUN gcc -o DockerWorld dockerworld.c
-CMD ["./DockerWorld"]
+EXPOSE 8080
+CMD "./DockerWorld"

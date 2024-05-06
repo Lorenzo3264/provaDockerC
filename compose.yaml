@@ -1,0 +1,32 @@
+
+services:
+    server:
+        build:
+            context: ./DockerWorld/
+        image: servsock:latest
+        volumes:
+            - DockerWorld:/exec
+        tty: true
+        container_name: serv
+        ports:
+            - 8080:8080
+        network_mode: host
+    client:
+        build:
+            context: ./DockerSendLor/
+        image: clisock:latest
+        volumes:
+            - DockerSendLor:/exec
+        tty: true
+        container_name: cli
+        depends_on:
+            - server
+        ports:
+            - 8081:8080
+        network_mode: host
+
+
+
+volumes:
+    DockerWorld:
+    DockerSendLor:

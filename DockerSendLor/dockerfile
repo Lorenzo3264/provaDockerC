@@ -1,0 +1,6 @@
+FROM gcc:latest
+COPY . /DockerClient
+WORKDIR /DockerClient/
+RUN gcc -o DockerClient dockerClient.c
+EXPOSE 5200
+CMD "./DockerClient"
