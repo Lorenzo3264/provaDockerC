@@ -15,7 +15,7 @@
 int main(int argc, char argv[]) {
 	int c_fd;
 	struct sockaddr_in sin;
-	char buffer[N] = "puzzi di fragoline";
+	char buffer[N] = "puzzi di lamponi";
 	
 	c_fd = socket(AF_INET, SOCK_STREAM, 0);
 
