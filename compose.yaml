@@ -3,30 +3,23 @@ services:
     server:
         build:
             context: ./DockerWorld/
-        image: servsock:latest
+        image: gcc:latest
         volumes:
-            - DockerWorld:/exec
-        tty: true
+            - ./DockerWorld:/DockerWorld
         container_name: serv
+        command: /bin/bash /DockerWorld/start.sh
         ports:
-            - 8080:8080
-        network_mode: host
+            -  8080:8080
+        tty: true
     client:
+        tty: true
         build:
             context: ./DockerSendLor/
-        image: clisock:latest
+        image: gcc:latest
         volumes:
-            - DockerSendLor:/exec
-        tty: true
+            - ./DockerSendLor:/DockerClient
         container_name: cli
+        command: /bin/bash /DockerClient/start.sh
         depends_on:
             - server
-        ports:
-            - 8081:8080
         network_mode: host
-
-
-
-volumes:
-    DockerWorld:
-    DockerSendLor:

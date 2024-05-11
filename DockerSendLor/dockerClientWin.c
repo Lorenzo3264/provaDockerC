@@ -4,10 +4,8 @@
 #include <string.h>
 #include <sys/types.h>
 #include <unistd.h>
-#include <sys/socket.h>
-#include <arpa/inet.h>
-#include <netinet/in.h>
-#include <netdb.h>
+#include <winsock2.h>
+#include <ws2tcpip.h>
 #define N 512
 #define PORT 8081
 #define OUTPORT 8080
@@ -15,13 +13,13 @@
 int main(int argc, char argv[]) {
 	int c_fd;
 	struct sockaddr_in sin;
-	char buffer[N] = "puzzi di lamponi\0";
+	char buffer[N] = "puzzi di windows";
 	
 	c_fd = socket(AF_INET, SOCK_STREAM, 0);
 
 	sin.sin_family = AF_INET;
 	sin.sin_port = htons(OUTPORT);
-	inet_aton("127.0.0.1", &sin.sin_addr);
+	inet_pton(AF_INET, "127.0.0.1", &sin.sin_addr);
 	
 	char buf[INET_ADDRSTRLEN];
 	inet_ntop(AF_INET, &sin.sin_addr, buf, sizeof(buf));

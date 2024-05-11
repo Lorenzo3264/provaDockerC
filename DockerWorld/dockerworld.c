@@ -9,6 +9,7 @@
 #include <arpa/inet.h>
 #include <sys/un.h>
 #include <unistd.h>
+
 #define PORT 8080
 #define OUTPORT 8081
 #define N 512
@@ -49,7 +50,7 @@ int main(int argc, char const* argv[])
 	//myaddr.sin_addr.s_addr = htonl("127.0.0.1");
 
 	//long, network byte order
-	inet_aton("127.0.0.1", &(myaddr.sin_addr));
+	inet_aton("0.0.0.0", &(myaddr.sin_addr));
 
 	// a zero tutto il resto
 	memset(&(myaddr.sin_zero), '\0', 8);
@@ -64,10 +65,12 @@ int main(int argc, char const* argv[])
 	char buf[INET_ADDRSTRLEN];
 	inet_ntop(AF_INET, &myaddr.sin_addr, buf, sizeof(buf));
 
+
 	pthread_mutex_init(&mutex, NULL);
 	while (1) {
 		printf("Accepting as %s with port %d...\n",buf,myaddr.sin_port);
 		clientSocket = accept(mySocket, (struct sockaddr*)&client, &len);
+		printf("request incoming...\n");
 		inet_ntop(AF_INET, &client.sin_addr, buffer, sizeof(buffer));
 		printf("request from client %s\n", buffer);
 		
